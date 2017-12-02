@@ -31,7 +31,6 @@ int get_sum(FILE *handler)
 
 int main(int argc, char **argv)
 {
-    char *buffer = NULL;
     if (!argv[1])
     {
         printf("give input file");
