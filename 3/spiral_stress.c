@@ -19,6 +19,25 @@ typedef struct
     Direction dir;
 } Command;
 
+typedef struct
+{
+    int value;
+    Point point;
+} PointValue;
+
+typedef struct GraphNode
+{
+    struct GraphNode *up;
+    struct GraphNode *down;
+    struct GraphNode *left;
+    struct GraphNode *right;
+    struct GraphNode *up_right;
+    struct GraphNode *up_left;
+    struct GraphNode *down_right;
+    struct GraphNode *down_left;
+    PointValue point_value;
+} GraphNode;
+
 void print_command(Command *cmd)
 {
     char *direction;
@@ -87,26 +106,25 @@ void update_point(Point *point, Direction dir)
     }
 }
 
+Point *get_neigbhours(Point point)
+{
+    Point *neighbours = malloc(sizeof(Point) * 8);
+    return neighbours;
+}
+
 int get_steps(int input)
 {
     int i;
     Point point;
     point.x = 0;
     point.y = 0;
+    PointValue start_point;
+    start_point.value = 1;
+    start_point.point = point;
     int spiral_steps_taken = 1;
-    Command *cmds;
-    cmds = get_commands(0);
-    int count = get_command_steps(cmds);
-    free(cmds);
     int iter = 1;
-    while (count <= input)
-    {
-        cmds = get_commands(iter++);
-        count += get_command_steps(cmds);
-        free(cmds);
-    }
 
-    int total_commands = iter * 5;
+    int total_commands = 100 * 5;
     Command *commands = malloc(sizeof(Command) * total_commands);
 
     for (i = 0; i < iter; ++i)
