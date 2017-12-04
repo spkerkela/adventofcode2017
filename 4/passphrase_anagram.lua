@@ -24,9 +24,6 @@ for line in io.lines(filename) do
     duplicates = false
     for word in string.gmatch(line, "%S+") do
         sorted = sort(word)
-        print(word)
-        print(sorted)
-        print("--")
         if not words[sorted] then
             words[sorted] = true
         else 
