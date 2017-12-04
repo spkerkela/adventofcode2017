@@ -4,7 +4,8 @@
 #include <string.h>
 
 #define MAX_LINE_LENGTH 1024 * 24
-#define ARRAY_START_SIZE 10
+#define ARRAY_START_SIZE 60
+#define MAX_STR_LEN 60
 
 typedef struct {
   char **array;
@@ -15,7 +16,8 @@ typedef struct {
 void list_push(DynamicStringList *list, char *item) {
   if (list->used == list->size) {
     list->size *= 2;
-    list->array = realloc(list->array, list->size * sizeof(char *));
+    list->array =
+        realloc(list->array, list->size * sizeof(char *) * MAX_STR_LEN);
   }
   list->array[list->used++] = item;
 }
@@ -33,19 +35,25 @@ int count_valid(FILE *handle) {
     list = malloc(sizeof(DynamicStringList));
     list->size = ARRAY_START_SIZE;
     list->used = 0;
-    list->array = malloc(ARRAY_START_SIZE * sizeof(char *));
+    list->array = malloc(ARRAY_START_SIZE * sizeof(char *) * MAX_STR_LEN);
     char *buffer = "";
     int i, j;
+    printf("===== LINE: %s\n", str);
     for (i = 0; i < length; ++i) {
       char current = str[i];
       if (isspace(current)) {
         buffer[j] = '\0';
-        char *item;
+        char item[MAX_STR_LEN];
         strcpy(item, buffer);
         list_push(list, item);
-        printf("%s", item);
+        printf("pushed: %s\n", item);
         j = 0;
         buffer = "";
+        int k;
+        for (k = 0; k < list->used; k++) {
+          printf("%s ", list->array[k]);
+        }
+        printf("\n");
       } else {
         buffer[j] = current;
         ++j;
