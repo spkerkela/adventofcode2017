@@ -1,7 +1,7 @@
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
 
 #define MAX_LINE_LENGTH 1024 * 24
 #define ARRAY_START_SIZE 10
@@ -38,9 +38,9 @@ int count_valid(FILE *handle) {
     int i, j;
     for (i = 0; i < length; ++i) {
       char current = str[i];
-      if (isspace(i)) {
+      if (isspace(current)) {
         buffer[j] = '\0';
-        char item[j];
+        char *item;
         strcpy(item, buffer);
         list_push(list, item);
         printf("%s", item);
