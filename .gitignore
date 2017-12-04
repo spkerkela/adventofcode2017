@@ -6,3 +6,6 @@
 .vs/
 input.txt
 test_input_*.txt
+*.swp
+*.swo
+a.out
